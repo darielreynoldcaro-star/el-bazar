@@ -4,10 +4,10 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <meta name="color-scheme" content="light dark" />
-<meta name="description" content="El Bazar — Tienda genérica en Cuba: celulares, accesorios y energía solar. Equipos nuevos y sellados con 15 días de garantía. Pide por WhatsApp." />
+<meta name="description" content="El Bazar — Tienda en Cuba: tecnología, comida y más. Pide por WhatsApp." />
 <link rel="icon" type="image/png" href="assets/favicon.png" />
 <link rel="apple-touch-icon" href="assets/favicon.png" />
-<title>El Bazar — Celulares, Accesorios y Energía Solar</title>
+<title>El Bazar — De todo en un solo lugar</title>
 <style>
   :root{
     --bg:#fcfbf8;
@@ -148,6 +148,10 @@
   textarea{resize:vertical;min-height:72px}
   .hint{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.4}
   .radio-group{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+  .cat-nav{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 10px;margin:6px 0 2px;scrollbar-width:none}
+  .cat-nav::-webkit-scrollbar{display:none}
+  .cat-nav a{flex:0 0 auto;text-decoration:none;font-weight:700;font-size:15px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:999px;padding:10px 18px;box-shadow:var(--shadow)}
+  .cat-nav a:active{border-color:var(--accent);color:var(--accent)}
   .radio-option{position:relative}
   .radio-option input{position:absolute;opacity:0;pointer-events:none}
   .radio-label{display:flex;flex-direction:column;gap:2px;padding:13px;border:1px solid var(--border);border-radius:12px;cursor:pointer;background:var(--bg)}
@@ -180,8 +184,8 @@
         <span class="brand-tag">De todo en un solo lugar · Ventas en Cuba</span>
       </div>
     </div>
-    <h1>Celulares, accesorios y <span>energía solar</span> sin salir de casa</h1>
-    <p>Equipos <strong>nuevos y sellados</strong>; teléfonos y tablets con <strong>15 días de garantía</strong>. Elige tu producto, llena el formulario y tu pedido llega directo a WhatsApp.</p>
+    <h1>Todo lo que buscas, <span>sin salir de casa</span></h1>
+    <p><strong>Tecnología</strong>, <strong>comida</strong> y mucho más. Elige lo que necesites, llena el formulario y tu pedido llega directo a WhatsApp.</p>
 
     <div class="hero-img">
       <img src="assets/hero-productos.webp" alt="Celulares, audífonos, auriculares inalámbricos y panel solar plegable de El Bazar" loading="eager" />
@@ -191,6 +195,12 @@
       <a href="#catalogo" class="btn btn-primary">Ver catálogo</a>
       <a href="#pedido" class="btn btn-secondary">Hacer un pedido →</a>
     </div>
+
+    <nav class="cat-nav" aria-label="Categorías de El Bazar">
+      <a href="#rec">📱 Tecnología</a>
+      <a href="#seccion-comida">🥛 Comida</a>
+      <a href="#pedido">📝 Hacer un pedido</a>
+    </nav>
 
     <div class="trust">
       <div class="trust-card">
@@ -242,7 +252,7 @@
     <!-- Para sumar otro proveedor: agrega otro bloque   -->
     <!-- .provider-head con sus categorías debajo.       -->
     <!-- ============================================= -->
-    <div class="provider-head">
+    <div class="provider-head" id="rec">
       <span class="provider-icon" aria-hidden="true">🏪</span>
       <div>
         <h3>REC</h3>
@@ -287,9 +297,9 @@
     </div>
 
     <!-- PROBIÓTICOS -->
-    <div style="margin-top:26px">
+    <div style="margin-top:26px" id="seccion-comida">
       <h3 style="margin:0 0 4px;font-size:18px">🥛 Probióticos <span class="count-pill">1 producto</span></h3>
-      <p style="margin:0 0 12px;color:var(--muted);font-size:14px">Yogurt probiótico sellado, por encargo. Precio en CUP.</p>
+      <p style="margin:0 0 12px;color:var(--muted);font-size:14px">Producto propio de El Bazar · Yogurt probiótico sellado, por encargo · Precio en CUP.</p>
       <div class="grid" id="grid-probioticos"></div>
       <div class="empty" data-empty-for="probioticos" style="display:none">
         <div class="empty-icon">🥛</div>
@@ -389,6 +399,19 @@
         <p class="hint">Elige con qué vas a pagar; ese método aparecerá en el mensaje de tu pedido.</p>
 
         <label for="notas">Notas (opcional)</label>
+        <div id="saborYogurWrap" style="display:none;margin-top:10px">
+          <label for="saborYogur">Sabor del yogurt
+            <select id="saborYogur">
+              <option value="">— Elige el sabor —</option>
+              <option>Maracuyá</option>
+              <option>Plátano</option>
+              <option>Fresa</option>
+              <option>Naranja Piña</option>
+              <option>Tutti Frutti</option>
+            </select>
+          </label>
+        </div>
+
         <input type="text" id="notas" placeholder="Color, capacidad, horario preferido, etc." autocomplete="off" />
 
         <div class="error" id="formError" role="alert"></div>
@@ -434,7 +457,8 @@
   ];
   function nombreProveedor(id){
     var prov = PROVEEDORES.find(function(x){ return x.id===id; });
-    return prov ? prov.nombre : (id || '');
+    if(prov) return prov.nombre;
+    return id ? id : 'El Bazar (producto propio, no REC)';
   }
   // Nombre del proveedor de un producto del catálogo (por su id); '' si no aplica.
   function nombreProveedorDeProducto(pid){
@@ -533,6 +557,7 @@
         card.querySelector('.product-btn').addEventListener('click', function(){
           select.value = p.id;
           if(typeof toggleManual === 'function') toggleManual();
+          if(typeof toggleSabor === 'function') toggleSabor();
           // toggleManual se define más abajo; si aún no existe, oculta el campo manual directamente
           var mw = document.getElementById('productoManualWrap');
           if(mw) mw.classList.remove('visible');
@@ -573,7 +598,16 @@
     // Solo mostramos el campo libre cuando elige "Consultar" explícitamente
     manualWrap.classList.toggle('visible', selectProd.value === '__consultar__');
   }
+  // El selector de sabor solo aparece para el yogurt probiótico
+  var saborWrap = document.getElementById('saborYogurWrap');
+  var saborSel = document.getElementById('saborYogur');
+  function toggleSabor(){
+    var isYogurt = selectProd.value === 'yogurt-probiotico-4lt';
+    if(saborWrap) saborWrap.style.display = isYogurt ? '' : 'none';
+    if(!isYogurt && saborSel) saborSel.value = '';
+  }
   selectProd.addEventListener('change', toggleManual);
+  selectProd.addEventListener('change', toggleSabor);
 
   function toggleEntrega(){
     var tipo = document.querySelector('input[name="entrega"]:checked').value;
@@ -599,7 +633,13 @@
       return document.getElementById('productoManual').value.trim();
     }
     var found = PRODUCTOS.find(function(p){ return p.id===v; });
-    if(found) return found.precio ? (found.nombre + ' (' + found.precio + ')') : found.nombre;
+    if(found){
+      var txt = found.precio ? (found.nombre + ' (' + found.precio + ')') : found.nombre;
+      if(found.id==='yogurt-probiotico-4lt' && saborSel && saborSel.value){
+        txt += ' — Sabor: ' + saborSel.value;
+      }
+      return txt;
+    }
     var opt = selectProd.options[selectProd.selectedIndex];
     return opt ? opt.textContent : v;
   }
@@ -621,6 +661,11 @@
     }
 
     var tipo = document.querySelector('input[name="entrega"]:checked').value;
+    if(selectProd.value==='yogurt-probiotico-4lt' && saborSel && !saborSel.value){
+      showError('Elige el sabor del yogurt para completar tu pedido.');
+      saborSel.focus();
+      return;
+    }
     var notas = document.getElementById('notas').value.trim();
     var lineas = [];
     lineas.push('🛒 *Nuevo pedido — El Bazar*');
