@@ -1,0 +1,654 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="light dark" />
+<meta name="description" content="El Bazar — Tienda genérica en Cuba: celulares, accesorios y energía solar. Equipos nuevos y sellados con 15 días de garantía. Pide por WhatsApp." />
+<link rel="icon" type="image/png" href="assets/favicon.png" />
+<link rel="apple-touch-icon" href="assets/favicon.png" />
+<title>El Bazar — Celulares, Accesorios y Energía Solar</title>
+<style>
+  :root{
+    --bg:#fcfbf8;
+    --bg-soft:#f4f0e6;
+    --surface:#ffffff;
+    --text:#171410;
+    --muted:#6f6450;
+    --border:#e7dfca;
+    --accent:#8a6a12;
+    --accent-2:#6f5508;
+    --accent-fill:#d9b45c;
+    --accent-soft:#f6edd3;
+    --accent-text:#191204;
+    --warning-bg:#fdf6dd;
+    --warning-border:#e3cb85;
+    --warning-text:#6d5200;
+    --radius:16px;
+    --radius-sm:12px;
+    --shadow:0 4px 20px rgba(60,45,5,.08);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0c0b09;
+      --bg-soft:#171512;
+      --surface:#1c1a16;
+      --text:#f4efe3;
+      --muted:#b0a68d;
+      --border:#38332a;
+      --accent:#e0bc63;
+      --accent-2:#f0d488;
+      --accent-fill:#d9b45c;
+      --accent-soft:#2b2413;
+      --accent-text:#171204;
+      --warning-bg:#2c240e;
+      --warning-border:#6b5a1e;
+      --warning-text:#eed488;
+      --shadow:0 4px 20px rgba(0,0,0,.45);
+    }
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit}
+  img{max-width:100%;display:block}
+  .wrap{max-width:680px;margin:0 auto;padding:0 16px}
+  /* Hero */
+  .hero{padding:20px 0 8px}
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand-logo{width:76px;height:76px;flex:0 0 76px;border-radius:18px;border:1px solid var(--border);box-shadow:var(--shadow);object-fit:cover}
+  .brand-name{display:block;font-size:31px;font-weight:900;letter-spacing:-.02em;line-height:1;color:var(--text)}
+  .brand-name span{color:var(--accent)}
+  .brand-tag{display:block;margin-top:5px;font-size:13.5px;font-weight:600;color:var(--muted)}
+  .hero h1{font-size:38px;line-height:.95;letter-spacing:-.03em;margin:14px 0 10px;font-weight:900}
+  .hero h1 span{color:var(--accent)}
+  .hero p{margin:0;color:var(--muted);font-size:16px;line-height:1.55;max-width:54ch}
+  .hero-img{margin:18px 0 0;border-radius:20px;overflow:hidden;border:1px solid var(--border);box-shadow:var(--shadow);aspect-ratio:4/3;background:var(--bg-soft)}
+  .hero-img img{width:100%;height:100%;object-fit:cover}
+  .hero-ctas{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 14px;border-radius:999px;font-weight:700;font-size:15px;text-decoration:none;border:1px solid transparent;cursor:pointer;transition:.15s;white-space:nowrap;text-align:center}
+  @media(max-width:420px){.btn{font-size:14px;padding:13px 10px}}
+  .btn-primary{background:var(--accent-fill);color:var(--accent-text);flex:1;min-width:150px}
+  .btn-primary:active{transform:scale(.98)}
+  .btn-secondary{background:var(--surface);color:var(--text);border-color:var(--border);flex:1;min-width:150px}
+  /* Trust bar */
+  .trust{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 4px}
+  .trust-card{background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
+  .trust-card strong{display:block;font-size:14px;margin-bottom:4px}
+  .trust-card p{margin:0;font-size:13px;color:var(--muted);line-height:1.45}
+  /* Sections */
+  section{padding:22px 0 4px}
+  .section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:12px}
+  .section-head h2{font-size:22px;line-height:1.1;letter-spacing:-.02em;margin:0;font-weight:800}
+  .section-head p{margin:4px 0 0;color:var(--muted);font-size:14px}
+  .badge{font-size:12px;font-weight:700;padding:6px 9px;border-radius:999px;background:var(--warning-bg);border:1px solid var(--warning-border);color:var(--warning-text);white-space:nowrap}
+  /* Catalog */
+  .notice{background:var(--warning-bg);border:1px solid var(--warning-border);color:var(--warning-text);border-radius:var(--radius);padding:14px 16px;font-size:14px;line-height:1.5;margin-bottom:14px}
+  .notice strong{color:inherit}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:380px){.grid{grid-template-columns:1fr}}
+  .product{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;position:relative}
+  .product-img{aspect-ratio:1/1;background:#ffffff;overflow:hidden;position:relative;border-bottom:1px solid var(--border)}
+  .product-img img{width:100%;height:100%;object-fit:cover}
+  .product-img .product-img-alt{position:absolute;right:8px;bottom:8px;width:31%;height:auto;aspect-ratio:1/1;object-fit:cover;border:2px solid #ffffff;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.22)}
+  .product-photo{aspect-ratio:1/1;background:linear-gradient(180deg,var(--bg-soft),var(--accent-soft));display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;border-bottom:1px solid var(--border);color:var(--muted)}
+  .product-photo .ph-icon{font-size:38px;line-height:1}
+  .product-photo .ph-label{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;opacity:.75}
+  .offer-tag{position:absolute;top:10px;left:10px;z-index:2;background:#dc2626;color:#fff;font-size:11px;font-weight:800;letter-spacing:.04em;padding:5px 8px;border-radius:999px;text-transform:uppercase;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+  .product-body{padding:12px;display:flex;flex-direction:column;gap:6px;flex:1}
+  .product-name{font-weight:700;font-size:15px;line-height:1.3}
+  .product-price-row{display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+  .product-price{font-weight:800;font-size:18px;color:var(--accent)}
+  .product-price .cur{font-size:13px;font-weight:700}
+  .price-old{font-size:13.5px;color:var(--muted);text-decoration:line-through;font-weight:600}
+  .product-desc{font-size:12.8px;color:var(--muted);line-height:1.5}
+  .specs{list-style:none;margin:2px 0 4px;padding:0;display:flex;flex-wrap:wrap;gap:5px}
+  .specs li{font-size:11.8px;line-height:1.3;background:var(--bg-soft);border:1px solid var(--border);padding:4px 7px;border-radius:999px;color:var(--text)}
+  .product-btn{margin-top:auto;width:100%;padding:11px;border-radius:999px;border:0;background:var(--accent-fill);color:var(--accent-text);font-weight:700;cursor:pointer;font-size:14px}
+  .count-pill{display:inline-flex;align-items:center;background:var(--accent-soft);color:var(--accent);border:1px solid var(--border);font-size:12px;font-weight:800;padding:3px 8px;border-radius:999px;margin-left:6px;vertical-align:middle;white-space:nowrap}
+  .catalog-note{background:var(--accent-soft);border:1px solid var(--border);color:var(--text);border-radius:var(--radius);padding:13px 15px;font-size:14px;line-height:1.5;margin-bottom:18px}
+  .catalog-note strong{color:var(--accent)}
+  /* Sección por proveedor (subtienda) */
+  .provider-head{display:flex;align-items:center;gap:12px;background:var(--accent-soft);border:1px solid var(--border);border-radius:var(--radius);padding:14px 16px;margin-bottom:20px}
+  .provider-icon{font-size:26px;line-height:1}
+  .provider-head h3{margin:0;font-size:19px;letter-spacing:-.01em}
+  .provider-head p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+  .empty{border:1.5px dashed var(--border);border-radius:var(--radius);padding:22px 16px;text-align:center;background:var(--bg-soft)}
+  .empty-icon{font-size:28px;margin-bottom:6px}
+  .empty strong{display:block;font-size:15px;margin-bottom:4px}
+  .empty p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.5}
+  .skeleton{margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:12px;opacity:.55}
+  .skeleton-card{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
+  .skeleton-img{aspect-ratio:4/3;background:var(--bg-soft);display:flex;align-items:center;justify-content:center;font-size:22px}
+  .skeleton-body{padding:10px}
+  .skeleton-line{height:10px;border-radius:999px;background:var(--border);margin-bottom:8px}
+  .skeleton-line.short{width:55%}
+  /* Steps */
+  .steps{display:grid;gap:10px}
+  .step{display:flex;gap:12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
+  .step-num{width:32px;height:32px;flex:0 0 32px;border-radius:50%;background:var(--accent-fill);color:var(--accent-text);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px}
+  .step strong{display:block;font-size:15px}
+  .step p{margin:2px 0 0;font-size:14px;color:var(--muted)}
+  /* Info cards */
+  .info-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+  .info-card h3{margin:0 0 10px;font-size:16px}
+  .pay-list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+  .pay-list li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.45}
+  .dot{width:22px;height:22px;flex:0 0 22px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;margin-top:1px}
+  .cols{display:grid;gap:12px}
+  @media(min-width:560px){.cols{grid-template-columns:1fr 1fr}.trust{grid-template-columns:1fr 1fr 1fr}.trust-card:last-child{grid-column:auto}}
+  /* Form */
+  .form-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
+  .form-card h2{margin:0 0 4px;font-size:22px;letter-spacing:-.02em}
+  .form-card>p{margin:0 0 16px;color:var(--muted);font-size:14px}
+  label{font-size:13.5px;font-weight:700;display:block;margin:14px 0 6px}
+  label:first-of-type{margin-top:0}
+  input,select,textarea{width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--border);background:var(--bg);color:var(--text);font-size:16px;font-family:inherit;outline:none}
+  input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  textarea{resize:vertical;min-height:72px}
+  .hint{font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.4}
+  .radio-group{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+  .radio-option{position:relative}
+  .radio-option input{position:absolute;opacity:0;pointer-events:none}
+  .radio-label{display:flex;flex-direction:column;gap:2px;padding:13px;border:1px solid var(--border);border-radius:12px;cursor:pointer;background:var(--bg)}
+  .radio-label strong{font-size:14.5px}
+  .radio-label span{font-size:12.5px;color:var(--muted);line-height:1.35;font-weight:400}
+  .radio-option input:checked + .radio-label{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 1px var(--accent)}
+  .conditional{display:none;margin-top:4px}
+  .conditional.visible{display:block}
+  .submit-btn{width:100%;margin-top:18px;padding:15px;border:0;border-radius:999px;background:#25D366;color:#0b2e18;font-weight:800;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+  .submit-btn:active{transform:scale(.99)}
+  .form-note{font-size:12.5px;color:var(--muted);text-align:center;margin-top:10px;line-height:1.45}
+  .error{display:none;background:#fef2f2;border:1px solid #fecaca;color:#991b1b;border-radius:12px;padding:11px 13px;font-size:13.5px;margin-top:12px;line-height:1.45}
+  @media(prefers-color-scheme:dark){.error{background:#2a1212;border-color:#5c2323;color:#fca5a5}}
+  .error.show{display:block}
+  footer{padding:28px 0 36px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6}
+  footer strong{color:var(--text)}
+  .footer-links{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
+  .footer-links a{font-size:13px;font-weight:600;text-decoration:none;border:1px solid var(--border);padding:7px 12px;border-radius:999px;background:var(--surface)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="brand">
+      <img class="brand-logo" src="assets/logo-el-bazar.png" alt="Logo de El Bazar: una B dorada formada por una bolsa de compras sobre fondo negro" />
+      <div>
+        <span class="brand-name">El <span>Bazar</span></span>
+        <span class="brand-tag">De todo en un solo lugar · Ventas en Cuba</span>
+      </div>
+    </div>
+    <h1>Celulares, accesorios y <span>energía solar</span> sin salir de casa</h1>
+    <p>Equipos <strong>nuevos y sellados</strong>; teléfonos y tablets con <strong>15 días de garantía</strong>. Elige tu producto, llena el formulario y tu pedido llega directo a WhatsApp.</p>
+
+    <div class="hero-img">
+      <img src="assets/hero-productos.webp" alt="Celulares, audífonos, auriculares inalámbricos y panel solar plegable de El Bazar" loading="eager" />
+    </div>
+
+    <div class="hero-ctas">
+      <a href="#catalogo" class="btn btn-primary">Ver catálogo</a>
+      <a href="#pedido" class="btn btn-secondary">Hacer un pedido →</a>
+    </div>
+
+    <div class="trust">
+      <div class="trust-card">
+        <strong>✅ Nuevos y sellados</strong>
+        <p>Todos los equipos son nuevos, en su caja sellada.</p>
+      </div>
+      <div class="trust-card">
+        <strong>🛡️ 15 días de garantía</strong>
+        <p>Garantía en teléfonos y tablets nuevos y sellados.</p>
+      </div>
+      <div class="trust-card" style="grid-column: span 2;">
+        <strong>🚚 Mensajería o recogida</strong>
+        <p>Entrega a domicilio o recogida en el local, como prefieras.</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- CÓMO PEDIR -->
+  <section aria-labelledby="como-title">
+    <div class="section-head">
+      <div>
+        <h2 id="como-title">¿Cómo pedir?</h2>
+        <p>En menos de un minuto</p>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="step-num">1</div><div><strong>Elige el producto</strong><p>Revisa el catálogo o escribe el que buscas en el formulario.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div><strong>Llena tus datos</strong><p>Selecciona mensajería o recogida y completa la información.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div><strong>Envía por WhatsApp</strong><p>Se abrirá WhatsApp con tu pedido listo. Solo dale enviar.</p></div></div>
+    </div>
+  </section>
+
+  <!-- CATÁLOGO -->
+  <section id="catalogo" aria-labelledby="catalogo-title">
+    <div class="section-head">
+      <div>
+        <h2 id="catalogo-title">Catálogo</h2>
+        <p>28 productos · Precios en USD</p>
+      </div>
+      <span class="badge" style="background:var(--accent-soft);border-color:var(--border);color:var(--accent)">Precios en USD</span>
+    </div>
+
+    <div class="catalog-note" role="status">
+      <strong>Precios vigentes:</strong> todos los precios están en <strong>USD</strong> como aparecen en las ofertas. Toca <strong>Pedir</strong> en cualquier producto y se abrirá el formulario con ese producto ya seleccionado. Confirmamos disponibilidad por WhatsApp.
+    </div>
+
+    <!-- ============================================= -->
+    <!-- PROVEEDOR: REC — primera subtienda de El Bazar. -->
+    <!-- Para sumar otro proveedor: agrega otro bloque   -->
+    <!-- .provider-head con sus categorías debajo.       -->
+    <!-- ============================================= -->
+    <div class="provider-head">
+      <span class="provider-icon" aria-hidden="true">🏪</span>
+      <div>
+        <h3>REC</h3>
+        <p>Tecnología y energía solar · 28 productos</p>
+      </div>
+    </div>
+
+    <!-- CELULARES -->
+    <div style="margin-bottom:26px">
+      <h3 style="margin:0 0 4px;font-size:18px">📱 Celulares y tablets <span class="count-pill">14 productos</span></h3>
+      <p style="margin:0 0 12px;color:var(--muted);font-size:14px">Teléfonos y tablets nuevos y sellados, con 15 días de garantía.</p>
+      <div class="grid" id="grid-celulares"></div>
+      <div class="empty" data-empty-for="celulares" style="display:none">
+        <div class="empty-icon">📱</div>
+        <strong>Sin productos por ahora</strong>
+        <p>Pide el modelo que buscas en el formulario de abajo.</p>
+      </div>
+    </div>
+
+    <!-- ACCESORIOS -->
+    <div style="margin-bottom:26px">
+      <h3 style="margin:0 0 4px;font-size:18px">🎧 Accesorios <span class="count-pill">5 productos</span></h3>
+      <p style="margin:0 0 12px;color:var(--muted);font-size:14px">Audífonos, cables y cargadores.</p>
+      <div class="grid" id="grid-accesorios"></div>
+      <div class="empty" data-empty-for="accesorios" style="display:none">
+        <div class="empty-icon">🎧</div>
+        <strong>Sin productos por ahora</strong>
+        <p>Pregunta por el accesorio que necesitas en el formulario.</p>
+      </div>
+    </div>
+
+    <!-- ENERGÍA -->
+    <div>
+      <h3 style="margin:0 0 4px;font-size:18px">☀️ Energía solar / Estaciones de energía <span class="count-pill">9 productos</span></h3>
+      <p style="margin:0 0 12px;color:var(--muted);font-size:14px">Estaciones, paneles, inversores y accesorios solares.</p>
+      <div class="grid" id="grid-energia"></div>
+      <div class="empty" data-empty-for="energia" style="display:none">
+        <div class="empty-icon">🔋</div>
+        <strong>Sin productos por ahora</strong>
+        <p>Consulta disponibilidad en el formulario de pedido.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAGO Y GARANTÍA -->
+  <section aria-labelledby="pago-title">
+    <div class="section-head">
+      <div><h2 id="pago-title">Pago y garantía</h2><p>Todo claro antes de pedir</p></div>
+    </div>
+    <div class="cols">
+      <div class="info-card">
+        <h3>💳 Métodos de pago aceptados</h3>
+        <ul class="pay-list">
+          <li><span class="dot">✓</span><span><strong>CUP</strong> — al cambio del día</span></li>
+          <li><span class="dot">✓</span><span><strong>USD</strong> — dólares americanos</span></li>
+          <li><span class="dot">✓</span><span><strong>Euros</strong></span></li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3>🛡️ Garantía y calidad</h3>
+        <ul class="pay-list">
+          <li><span class="dot">✓</span><span><strong>Equipos nuevos y sellados</strong> en su caja original</span></li>
+          <li><span class="dot">✓</span><span><strong>15 días de garantía</strong> en teléfonos y tablets</span></li>
+          <li><span class="dot">✓</span><span>Confirmamos <strong>disponibilidad y precio final</strong> por WhatsApp antes de cerrar tu pedido</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMULARIO DE PEDIDO -->
+  <section id="pedido" aria-labelledby="pedido-title">
+    <div class="form-card">
+      <h2 id="pedido-title">Haz tu pedido</h2>
+      <p>Completa los datos y se abrirá WhatsApp con tu pedido listo para enviar al <strong>+53 53770059</strong>.</p>
+
+      <form id="orderForm" novalidate>
+        <label for="productoSelect">¿Qué quieres pedir? *</label>
+        <select id="productoSelect" required>
+          <option value="">— Selecciona una opción —</option>
+          <option value="__consultar__">Consultar disponibilidad de un producto</option>
+        </select>
+        <div id="productoManualWrap" class="conditional">
+          <label for="productoManual">Escribe el producto que buscas *</label>
+          <input type="text" id="productoManual" placeholder="Ej: celular, audífonos, estación de energía…" autocomplete="off" />
+        </div>
+        <p class="hint">También puedes elegir “Consultar disponibilidad” y escribir libremente otro producto que busques.</p>
+
+        <label>Tipo de entrega *</label>
+        <div class="radio-group" role="radiogroup" aria-label="Tipo de entrega">
+          <div class="radio-option">
+            <input type="radio" name="entrega" id="entregaMensajeria" value="mensajeria" checked />
+            <label class="radio-label" for="entregaMensajeria" style="margin:0">
+              <strong>🚚 Mensajería</strong>
+              <span>Entrega a domicilio</span>
+            </label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="entrega" id="entregaRecogida" value="recogida" />
+            <label class="radio-label" for="entregaRecogida" style="margin:0">
+              <strong>🏪 Recogida en el local</strong>
+              <span>Pasas a recogerlo tú</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Mensajería -->
+        <div id="fieldsMensajeria" class="conditional visible">
+          <label for="nombreComprador">Nombre del comprador *</label>
+          <input type="text" id="nombreComprador" placeholder="Tu nombre completo" autocomplete="name" />
+
+          <label for="telefono">Número de teléfono *</label>
+          <input type="tel" id="telefono" placeholder="Ej: 5xxxxxxx" autocomplete="tel" inputmode="tel" />
+
+          <label for="direccion">Dirección de entrega *</label>
+          <textarea id="direccion" placeholder="Calle, número, entrecalles, reparto, municipio y provincia. Agrega una referencia si ayuda al mensajero."></textarea>
+        </div>
+
+        <!-- Recogida -->
+        <div id="fieldsRecogida" class="conditional">
+          <label for="nombreRecoge">Nombre de la persona que recoge *</label>
+          <input type="text" id="nombreRecoge" placeholder="Nombre completo de quien recoge" autocomplete="name" />
+          <p class="hint">Ese es el único dato que necesitamos para la recogida en el local.</p>
+        </div>
+
+        <label for="metodoPago">Método de pago *</label>
+        <select id="metodoPago" required>
+          <option value="">— Selecciona cómo vas a pagar —</option>
+          <option value="CUP al cambio del día">CUP — al cambio del día</option>
+          <option value="USD">USD — dólares americanos</option>
+          <option value="Euros">Euros</option>
+        </select>
+        <p class="hint">Elige con qué vas a pagar; ese método aparecerá en el mensaje de tu pedido.</p>
+
+        <label for="notas">Notas (opcional)</label>
+        <input type="text" id="notas" placeholder="Color, capacidad, horario preferido, etc." autocomplete="off" />
+
+        <div class="error" id="formError" role="alert"></div>
+
+        <button type="submit" class="submit-btn">
+          <span>💬</span> Enviar pedido por WhatsApp
+        </button>
+        <p class="form-note">Los datos que escribes aquí solo se usan para armar el mensaje de WhatsApp que se envía al +53 53770059; esta página no guarda ni comparte tu información.</p>
+        <p class="form-note">Al enviar se abrirá WhatsApp con el mensaje ya escrito al <strong>+53 53770059</strong>. Solo tienes que darle <strong>Enviar</strong> en WhatsApp.</p>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    <strong>El Bazar</strong><br>
+    Celulares · Accesorios · Energía solar · Estaciones de energía · Bicicletas eléctricas<br>
+    Equipos nuevos y sellados · 15 días de garantía en teléfonos y tablets
+    <div class="footer-links">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#pedido">Hacer pedido</a>
+      <a href="https://wa.me/5353770059" target="_blank" rel="noopener">WhatsApp: +53 53770059</a>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // ============================================================
+  // CONFIGURACIÓN — Editar aquí cuando lleguen las ofertas reales
+  // ============================================================
+  // Número de WhatsApp del dueño (Dariel) — destino de los pedidos.
+  // Formato internacional sin + ni espacios: 53 (Cuba) + 53770059
+  var WHATSAPP_DARIEL = "5353770059";
+
+  // ============================================================
+  // PROVEEDORES (subtiendas de El Bazar)
+  // Cada producto lleva "proveedor" con el id de su proveedor.
+  // Para agregar otro proveedor: añádelo aquí, crea su sección
+  // en el HTML del catálogo y pon su id en sus productos.
+  // ============================================================
+  var PROVEEDORES = [
+    { id:"rec", nombre:"REC" }
+  ];
+  function nombreProveedor(id){
+    var prov = PROVEEDORES.find(function(x){ return x.id===id; });
+    return prov ? prov.nombre : (id || '');
+  }
+  // Nombre del proveedor de un producto del catálogo (por su id); '' si no aplica.
+  function nombreProveedorDeProducto(pid){
+    var prod = PRODUCTOS.find(function(x){ return x.id===pid; });
+    if(!prod) return '';
+    return nombreProveedor(prod.proveedor || 'rec');
+  }
+
+  // Catálogo — precios en USD tal como aparecen en las ofertas.
+  // proveedor: id del proveedor dueño del producto (ver PROVEEDORES).
+  // categoria: "celulares" | "accesorios" | "energia"
+  // foto: flyer oficial del producto en assets/ (producto-01.jpg … producto-29.jpg).
+  // foto2: flyer de la otra variante del mismo producto (miniatura en la esquina).
+  var PRODUCTOS = [
+    // ---- CELULARES Y TABLETS (14) ----
+    { proveedor:"rec", id:"hotwav-x100-se", nombre:"HOTWAV X100 SE", precio:"$129", precioAntes:"", specs:["RAM 12GB","64GB","5000 mAh","Pantalla 6.7\"","Cámara 13+64MP","WiFi 6"], desc:"RAM 12GB · 64GB · 5000 mAh · Pantalla 6.7\" · Cámara 13+64MP · WiFi 6", foto:"assets/producto-15.jpg", icono:"📱", categoria:"celulares" },
+    { proveedor:"rec", id:"tablet-hotwav-4g", nombre:"TABLET HOTWAV 4G", precio:"$169", precioAntes:"", specs:["RAM 12GB","64GB","8000 mAh","Pantalla 10.1\"","4G","Incluye teclado, mouse, funda, lápiz, cargador"], desc:"RAM 12GB · 64GB · 8000 mAh · Pantalla 10.1\" · 4G · Incluye teclado, mouse, funda, lápiz, cargador", foto:"assets/producto-16.jpg", icono:"📲", categoria:"celulares" },
+    { proveedor:"rec", id:"iphone-17-pro-max", nombre:"iPHONE 17 PRO MAX", precio:"$1690", precioAntes:"$1790", specs:["256GB","Libre de fábrica","Batería 100%","SIM física"], desc:"256GB · Libre de fábrica · Batería 100% · SIM física", foto:"assets/producto-17.jpg", icono:"📱", categoria:"celulares" },
+    { proveedor:"rec", id:"tablet-tmobile-revvl-tab-5g", nombre:"TABLET T-MOBILE 4G (REVVL TAB 5G)", precio:"$189", precioAntes:"", specs:["RAM 6GB","128GB","7040 mAh","Pantalla 10.3\""], desc:"RAM 6GB · 128GB · 7040 mAh · Pantalla 10.3\"", foto:"assets/producto-18.jpg", icono:"📲", categoria:"celulares" },
+    { proveedor:"rec", id:"zte-v50-design", nombre:"ZTE V50 DESIGN", precio:"$159", precioAntes:"", specs:["RAM 14GB","256GB","5000 mAh","Pantalla 6.6\" FHD+","Cámara 50MP","Carga 22.5W"], desc:"RAM 14GB · 256GB · 5000 mAh · Pantalla 6.6\" FHD+ · Cámara 50MP · Carga 22.5W", foto:"assets/producto-19.jpg", icono:"📱", categoria:"celulares" },
+    { proveedor:"rec", id:"sky-65-pro", nombre:"SKY 65 PRO", precio:"$99", precioAntes:"", specs:["RAM 3GB","64GB","4000 mAh","Pantalla 6.6\" HD+","Cámara 13MP+8MP","Huella","Incluye funda, cable y cargador"], desc:"RAM 3GB · 64GB · 4000 mAh · Pantalla 6.6\" HD+ · Cámara 13MP+8MP · Huella · Incluye funda, cable y cargador", foto:"assets/producto-20.jpg", icono:"📱", categoria:"celulares" },
+    { proveedor:"rec", id:"nokia-c12", nombre:"Nokia C12", precio:"$99", precioAntes:"", specs:["RAM 2GB","64GB","3000 mAh","Pantalla 6.3\""], desc:"RAM 2GB · 64GB · 3000 mAh · Pantalla 6.3\"", foto:"assets/producto-21.jpg", icono:"📱", categoria:"celulares" },
+    { proveedor:"rec", id:"blu-zoey-flex", nombre:"BLU Zoey Flex", precio:"$49", precioAntes:"", specs:["RAM 64MB","128MB","820 mAh","Pantalla 2.8\""], desc:"RAM 64MB · 128MB · 820 mAh · Pantalla 2.8\"", foto:"assets/producto-22.jpg", icono:"📱", categoria:"celulares" },
+    { proveedor:"rec", id:"alcatel-1041", nombre:"Alcatel 1041", precio:"$49", precioAntes:"", specs:["128MB","1030 mAh","Pantalla 2.0\""], desc:"128MB · 1030 mAh · Pantalla 2.0\"", foto:"assets/producto-23.jpg", icono:"📱", categoria:"celulares" },
+    { proveedor:"rec", id:"alcatel-3", nombre:"Alcatel 3", precio:"$129", precioAntes:"", specs:["RAM 6GB","64GB","5000 mAh","Pantalla 6.5\""], desc:"RAM 6GB · 64GB · 5000 mAh · Pantalla 6.5\"", foto:"assets/producto-24.jpg", icono:"📱", categoria:"celulares" },
+    { proveedor:"rec", id:"samsung-galaxy-a14-5g", nombre:"Samsung Galaxy A14 5G", precio:"$169", precioAntes:"", specs:["RAM 4GB","64GB","5000 mAh","Pantalla 6.6\""], desc:"RAM 4GB · 64GB · 5000 mAh · Pantalla 6.6\"", foto:"assets/producto-25.jpg", icono:"📱", categoria:"celulares" },
+    { proveedor:"rec", id:"itel-a100cs", nombre:"Itel A100Cs", precio:"$149", precioAntes:"", specs:["RAM 8GB","128GB","5000 mAh","Pantalla 6.6\" 90Hz"], desc:"RAM 8GB · 128GB · 5000 mAh · Pantalla 6.6\" 90Hz", foto:"assets/producto-26.jpg", icono:"📱", categoria:"celulares" },
+    { proveedor:"rec", id:"itel-a200-64", nombre:"Itel A200 (64GB)", precio:"$149", precioAntes:"", specs:["RAM 8GB","64GB","5000 mAh","Pantalla 6.7\" 120Hz"], desc:"RAM 8GB · 64GB · 5000 mAh · Pantalla 6.7\" 120Hz", foto:"assets/producto-27.jpg", icono:"📱", categoria:"celulares" },
+    { proveedor:"rec", id:"itel-a200-128", nombre:"Itel A200 (128GB)", precio:"$159", precioAntes:"", specs:["RAM 8GB","128GB","5000 mAh","Pantalla 6.7\" 120Hz"], desc:"RAM 8GB · 128GB · 5000 mAh · Pantalla 6.7\" 120Hz", foto:"assets/producto-28.jpg", icono:"📱", categoria:"celulares" },
+    // ---- ACCESORIOS (5) ----
+    { proveedor:"rec", id:"audifonos-rec-ai-j33", nombre:"Audífonos REC AI J-33", precio:"$14.90", precioAntes:"", specs:["Batería 8-9h","Cargador 500 mAh","Disponible en negro y blanco"], desc:"Batería 8-9h · Cargador 500 mAh · Disponible en negro y blanco", foto:"assets/producto-01.jpg", foto2:"assets/producto-02.jpg", icono:"🎧", categoria:"accesorios" },
+    { proveedor:"rec", id:"cable-usb-v8", nombre:"Cable USB 3.1 A (USB - V8 / micro USB)", precio:"$3", precioAntes:"", specs:["Carga rápida 25W"], desc:"Carga rápida 25W", foto:"assets/producto-03.jpg", icono:"🔌", categoria:"accesorios" },
+    { proveedor:"rec", id:"audifonos-rec-pro-3", nombre:"Audífonos REC Pro 3", precio:"$4", precioAntes:"", specs:["Manos libres","Plug 3.5 mm"], desc:"Manos libres · Plug 3.5 mm", foto:"assets/producto-04.jpg", icono:"🎧", categoria:"accesorios" },
+    { proveedor:"rec", id:"cable-usb-tipo-c", nombre:"Cable USB 3.1 A (USB - Tipo C)", precio:"$3", precioAntes:"", specs:["Carga rápida 25W"], desc:"Carga rápida 25W", foto:"assets/producto-05.jpg", icono:"🔌", categoria:"accesorios" },
+    { proveedor:"rec", id:"cargador-pd-qc30", nombre:"Cargador de carga rápida PD+QC3.0", precio:"$7.50", precioAntes:"", specs:["USB QC 3.0","Tipo C PD 25W"], desc:"USB QC 3.0 · Tipo C PD 25W", foto:"assets/producto-06.jpg", icono:"🔌", categoria:"accesorios" },
+    // ---- ENERGÍA SOLAR / ESTACIONES (9) ----
+    { proveedor:"rec", id:"anker-solix-s2000", nombre:"Estación de energía Anker Solix S2000", precio:"$1090", precioAntes:"", specs:["2010 Wh","Pico 3000W","LiFePO4","Carga completa 1h"], desc:"2010 Wh · Pico 3000W · LiFePO4 · Carga completa 1h", foto:"assets/producto-07.jpg", icono:"🔋", categoria:"energia" },
+    { proveedor:"rec", id:"inversor-hibrido-sumry", nombre:"Inversor híbrido Sumry", precio:"$490", precioAntes:"", specs:["4000W","Salida 110/120V AC","Compatible 24V","MPPT 55-280 VDC"], desc:"4000W · Salida 110/120V AC · Compatible 24V · MPPT 55-280 VDC", foto:"assets/producto-08.jpg", icono:"⚡", categoria:"energia" },
+    { proveedor:"rec", id:"bases-paneles-solares", nombre:"Bases para paneles solares", precio:"$79", precioAntes:"", specs:["Aluminio","Ángulo ajustable","Montaje fácil"], desc:"Aluminio · Ángulo ajustable · Montaje fácil", foto:"assets/producto-09.jpg", icono:"☀️", categoria:"energia" },
+    { proveedor:"rec", id:"panel-bifacial-skymax-620w", nombre:"Panel bifacial Skymax 620W", precio:"$240", precioAntes:"$290", specs:["Pmax 620W","Voc 49.6V","Isc 15.91A"], desc:"Pmax 620W · Voc 49.6V · Isc 15.91A", foto:"assets/producto-10.jpg", icono:"☀️", categoria:"energia" },
+    { proveedor:"rec", id:"cable-solar-mc4-mc4", nombre:"Cable solar MC4 x MC4", precio:"$109", precioAntes:"", specs:["10 AWG","9.14m (30 pies)","Conectores MC4"], desc:"10 AWG · 9.14m (30 pies) · Conectores MC4", foto:"assets/producto-11.jpg", icono:"🔌", categoria:"energia" },
+    { proveedor:"rec", id:"cable-solar-ecoflow-anker", nombre:"Cable solar para EcoFlow y Anker", precio:"$109", precioAntes:"", specs:["10 AWG","9.14m","Conector XT60i + MC4"], desc:"10 AWG · 9.14m · Conector XT60i + MC4", foto:"assets/producto-12.jpg", icono:"🔌", categoria:"energia" },
+    { proveedor:"rec", id:"varilla-puesta-tierra", nombre:"Varilla de puesta a tierra", precio:"$59", precioAntes:"", specs:["Bronce","1.22m"], desc:"Bronce · 1.22m", foto:"assets/producto-13.jpg", icono:"⚡", categoria:"energia" },
+    { proveedor:"rec", id:"power-bank-solar-nns", nombre:"Power bank solar NNS (NS-8858S-LS)", precio:"$49", precioAntes:"", specs:["6000 mAh","Panel 5V 15W","Lámparas LED"], desc:"6000 mAh · Panel 5V 15W · Lámparas LED", foto:"assets/producto-14.jpg", icono:"🔋", categoria:"energia" },
+    { proveedor:"rec", id:"conectores-mc4", nombre:"Conectores MC4", precio:"$2.90", precioAntes:"$3.90", specs:["Hembra y macho","IP67/IP68"], desc:"Hembra y macho · IP67/IP68", foto:"assets/producto-29.jpg", icono:"🔌", categoria:"energia" }
+  ];
+
+  // ============================================================
+  // Render del catálogo
+  // ============================================================
+  (function renderCatalog(){
+    var grids = {
+      celulares: document.getElementById('grid-celulares'),
+      accesorios: document.getElementById('grid-accesorios'),
+      energia: document.getElementById('grid-energia')
+    };
+    var select = document.getElementById('productoSelect');
+    var consultarOpt = select.querySelector('option[value="__consultar__"]');
+
+    PRODUCTOS.forEach(function(p){
+      var grid = grids[p.categoria];
+      if(grid){
+        var card = document.createElement('article');
+        card.className = 'product';
+        // Recuadro de imagen: flyer oficial del producto; foto2 (si existe) va como miniatura de la otra variante
+        var mediaHtml = p.foto
+          ? '<div class="product-img"><img src="'+p.foto+'" alt="" loading="lazy">' + (p.foto2 ? '<img class="product-img-alt" src="'+p.foto2+'" alt="" loading="lazy">' : '') + '</div>'
+          : '<div class="product-photo" aria-hidden="true"><span class="ph-icon">'+(p.icono||'🖼️')+'</span><span class="ph-label">Foto del producto</span></div>';
+        var offerHtml = p.precioAntes ? '<span class="offer-tag">Oferta</span>' : '';
+        var priceHtml = '<div class="product-price-row"><span class="product-price"></span>' + (p.precioAntes ? '<span class="price-old"></span>' : '') + '<span style="font-size:12px;font-weight:700;color:var(--muted)">USD</span></div>';
+        var specsHtml = '';
+        if(p.specs && p.specs.length){
+          specsHtml = '<ul class="specs">' + p.specs.map(function(s){ return '<li></li>'; }).join('') + '</ul>';
+        }
+        card.innerHTML = offerHtml + mediaHtml +
+          '<div class="product-body">' +
+            '<div class="product-name"></div>' +
+            priceHtml +
+            specsHtml +
+            '<button type="button" class="product-btn">Pedir este producto</button>' +
+          '</div>';
+        var imgEl = card.querySelector('.product-img img');
+        if(imgEl) imgEl.alt = 'Flyer de ' + p.nombre;
+        var imgAltEl = card.querySelector('.product-img-alt');
+        if(imgAltEl) imgAltEl.alt = 'Flyer de ' + p.nombre + ' en otro color';
+        card.querySelector('.product-name').textContent = p.nombre;
+        card.querySelector('.product-price').textContent = p.precio;
+        if(p.precioAntes) card.querySelector('.price-old').textContent = p.precioAntes;
+        if(p.specs && p.specs.length){
+          var lis = card.querySelectorAll('.specs li');
+          p.specs.forEach(function(s,i){ if(lis[i]) lis[i].textContent = s; });
+        }
+        card.querySelector('.product-btn').addEventListener('click', function(){
+          select.value = p.id;
+          if(typeof toggleManual === 'function') toggleManual();
+          // toggleManual se define más abajo; si aún no existe, oculta el campo manual directamente
+          var mw = document.getElementById('productoManualWrap');
+          if(mw) mw.classList.remove('visible');
+          document.getElementById('pedido').scrollIntoView({behavior:'smooth'});
+          var fc = document.getElementById('orderForm');
+          if(fc){ fc.style.boxShadow = '0 0 0 3px var(--accent-soft)'; setTimeout(function(){ fc.style.boxShadow=''; }, 1200); }
+        });
+        grid.appendChild(card);
+      }
+      var opt = document.createElement('option');
+      opt.value = p.id;
+      opt.textContent = p.precio ? (p.nombre + ' — ' + p.precio + (p.precioAntes ? ' (antes ' + p.precioAntes + ')' : '')) : p.nombre;
+      // Insertar productos antes de la opción "Consultar" para que el catálogo vaya primero
+      if(consultarOpt) select.insertBefore(opt, consultarOpt);
+      else select.appendChild(opt);
+    });
+
+    ['celulares','accesorios','energia'].forEach(function(cat){
+      var has = PRODUCTOS.some(function(p){ return p.categoria===cat; });
+      var emptyEl = document.querySelector('[data-empty-for="'+cat+'"]');
+      if(emptyEl) emptyEl.style.display = has ? 'none' : '';
+    });
+    document.querySelectorAll('.skeleton').forEach(function(el){ el.style.display='none'; });
+  })();
+
+  // ============================================================
+  // Formulario: lógica de entrega y producto manual
+  // ============================================================
+  var form = document.getElementById('orderForm');
+  var selectProd = document.getElementById('productoSelect');
+  var manualWrap = document.getElementById('productoManualWrap');
+  var fieldsMens = document.getElementById('fieldsMensajeria');
+  var fieldsRec = document.getElementById('fieldsRecogida');
+  var errorBox = document.getElementById('formError');
+
+  function toggleManual(){
+    var isManual = selectProd.value === '__consultar__' || selectProd.value === '';
+    // Solo mostramos el campo libre cuando elige "Consultar" explícitamente
+    manualWrap.classList.toggle('visible', selectProd.value === '__consultar__');
+  }
+  selectProd.addEventListener('change', toggleManual);
+
+  function toggleEntrega(){
+    var tipo = document.querySelector('input[name="entrega"]:checked').value;
+    fieldsMens.classList.toggle('visible', tipo==='mensajeria');
+    fieldsRec.classList.toggle('visible', tipo==='recogida');
+    errorBox.classList.remove('show');
+  }
+  document.querySelectorAll('input[name="entrega"]').forEach(function(r){
+    r.addEventListener('change', toggleEntrega);
+  });
+  toggleEntrega();
+  toggleManual();
+
+  function showError(msg){
+    errorBox.textContent = msg;
+    errorBox.classList.add('show');
+    errorBox.scrollIntoView({behavior:'smooth', block:'center'});
+  }
+  function getProductoTexto(){
+    var v = selectProd.value;
+    if(!v) return '';
+    if(v==='__consultar__'){
+      return document.getElementById('productoManual').value.trim();
+    }
+    var found = PRODUCTOS.find(function(p){ return p.id===v; });
+    if(found) return found.precio ? (found.nombre + ' (' + found.precio + ')') : found.nombre;
+    var opt = selectProd.options[selectProd.selectedIndex];
+    return opt ? opt.textContent : v;
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    errorBox.classList.remove('show');
+
+    var producto = getProductoTexto();
+    if(!selectProd.value){
+      showError('Por favor selecciona qué quieres pedir. Si no está en la lista, elige "Consultar disponibilidad de un producto".');
+      selectProd.focus();
+      return;
+    }
+    if(selectProd.value==='__consultar__' && !producto){
+      showError('Escribe el producto que buscas para poder ayudarte.');
+      document.getElementById('productoManual').focus();
+      return;
+    }
+
+    var tipo = document.querySelector('input[name="entrega"]:checked').value;
+    var notas = document.getElementById('notas').value.trim();
+    var lineas = [];
+    lineas.push('🛒 *Nuevo pedido — El Bazar*');
+    lineas.push('');
+    lineas.push('📦 *Producto:* ' + producto);
+    var provNombre = nombreProveedorDeProducto(selectProd.value);
+    if(provNombre) lineas.push('🏪 *Proveedor:* ' + provNombre);
+
+    if(tipo==='mensajeria'){
+      var nombre = document.getElementById('nombreComprador').value.trim();
+      var tel = document.getElementById('telefono').value.trim();
+      var dir = document.getElementById('direccion').value.trim();
+      if(!nombre){ showError('Para mensajería necesitamos el nombre del comprador.'); document.getElementById('nombreComprador').focus(); return; }
+      if(!tel){ showError('Para mensajería necesitamos tu número de teléfono.'); document.getElementById('telefono').focus(); return; }
+      if(!dir){ showError('Para mensajería necesitamos la dirección de entrega.'); document.getElementById('direccion').focus(); return; }
+      lineas.push('🚚 *Entrega:* Mensajería (a domicilio)');
+      lineas.push('👤 *Nombre del comprador:* ' + nombre);
+      lineas.push('📞 *Teléfono:* ' + tel);
+      lineas.push('📍 *Dirección:* ' + dir);
+    } else {
+      var nombreRecoge = document.getElementById('nombreRecoge').value.trim();
+      if(!nombreRecoge){ showError('Para recogida en el local necesitamos el nombre de la persona que recoge.'); document.getElementById('nombreRecoge').focus(); return; }
+      lineas.push('🏪 *Entrega:* Recogida en el local');
+      lineas.push('👤 *Persona que recoge:* ' + nombreRecoge);
+    }
+    var metodoPago = document.getElementById('metodoPago').value;
+    if(!metodoPago){ showError('Por favor elige el método de pago con el que vas a pagar.'); document.getElementById('metodoPago').focus(); return; }
+    lineas.push('💳 *Método de pago:* ' + metodoPago);
+
+    if(notas){
+      lineas.push('📝 *Notas:* ' + notas);
+    }
+
+    var mensaje = lineas.join('\n');
+    var url = 'https://wa.me/' + WHATSAPP_DARIEL + '?text=' + encodeURIComponent(mensaje);
+    // window.open puede ser bloqueado dentro de la vista embebida de la app;
+    // si no abre la pestaña, navegamos en la misma ventana como respaldo.
+    var win = null;
+    try { win = window.open(url, '_blank'); } catch(err) { win = null; }
+    if(!win){
+      window.location.href = url;
+    }
+  });
+</script>
+</body>
+</html>
