@@ -303,7 +303,7 @@
     <!-- PROBIÓTICOS -->
     <div style="margin-top:26px" id="seccion-comida">
       <h3 style="margin:0 0 4px;font-size:18px">🥛 Probióticos <span class="count-pill">1 producto</span></h3>
-      <p style="margin:0 0 12px;color:var(--muted);font-size:14px">Producto propio de El Bazar · Yogurt probiótico sellado, por encargo · Precio en CUP.</p>
+      <p style="margin:0 0 12px;color:var(--muted);font-size:14px">Producto propio de El Bazar · Yogurt probiótico sellado, por encargo · Solo por domicilio · Con azúcar o sin azúcar · Producción nacional · Precio en CUP.</p>
       <div class="grid" id="grid-probioticos"></div>
       <div class="empty" data-empty-for="probioticos" style="display:none">
         <div class="empty-icon">🥛</div>
@@ -373,6 +373,7 @@
             </label>
           </div>
         </div>
+        <p id="notaYogurDomicilio" class="hint" style="display:none">El yogurt probiótico solo se puede pedir por domicilio: no se recoge en ningún lugar.</p>
 
         <!-- Mensajería -->
         <div id="fieldsMensajeria" class="conditional visible">
@@ -412,6 +413,15 @@
               <option>Fresa</option>
               <option>Naranja Piña</option>
               <option>Tutti Frutti</option>
+            </select>
+          </label>
+        </div>
+        <div id="azucarYogurWrap" style="display:none;margin-top:10px">
+          <label for="azucarYogur">Azúcar del yogurt
+            <select id="azucarYogur">
+              <option value="">— Elige —</option>
+              <option>Con azúcar</option>
+              <option>Sin azúcar</option>
             </select>
           </label>
         </div>
@@ -509,7 +519,7 @@
     { proveedor:"rec", id:"power-bank-solar-nns", nombre:"Power bank solar NNS (NS-8858S-LS)", precio:"$49", precioAntes:"", specs:["6000 mAh","Panel 5V 15W","Lámparas LED"], desc:"6000 mAh · Panel 5V 15W · Lámparas LED", foto:"assets/producto-14.jpg", icono:"🔋", categoria:"energia" },
     { proveedor:"rec", id:"conectores-mc4", nombre:"Conectores MC4", precio:"$2.90", precioAntes:"$3.90", specs:["Hembra y macho","IP67/IP68"], desc:"Hembra y macho · IP67/IP68", foto:"assets/producto-29.jpg", icono:"🔌", categoria:"energia" },
     // ---- PROBIÓTICOS (1) ----
-    { proveedor:"", id:"yogurt-probiotico-4lt", nombre:"Yogurt Probiótico 4 Lt", precio:"5,000 CUP", moneda:"CUP", precioAntes:"", specs:["Cubeta sellada de 4 litros","Por encargo","Sabores: Maracuyá, Plátano, Fresa, Naranja Piña, Tutti Frutti"], desc:"Cubeta sellada de 4 litros · Por encargo · Sabores: Maracuyá, Plátano, Fresa, Naranja Piña, Tutti Frutti", foto:"assets/producto-30.jpg", icono:"🥛", categoria:"probioticos" }
+    { proveedor:"", id:"yogurt-probiotico-4lt", nombre:"Yogurt Probiótico 4 Lt", precio:"5,000 CUP", moneda:"CUP", precioAntes:"", specs:["Cubeta sellada de 4 litros","Por encargo","Solo por domicilio","Con azúcar o sin azúcar","Producción nacional","Sabores: Maracuyá, Plátano, Fresa, Naranja Piña, Tutti Frutti"], desc:"Cubeta sellada de 4 litros · Por encargo · Solo por domicilio · Con azúcar o sin azúcar · Producción nacional · Sabores: Maracuyá, Plátano, Fresa, Naranja Piña, Tutti Frutti", foto:"assets/producto-30.jpg", icono:"🥛", categoria:"probioticos" }
   ];
 
   // ============================================================
@@ -602,13 +612,27 @@
     // Solo mostramos el campo libre cuando elige "Consultar" explícitamente
     manualWrap.classList.toggle('visible', selectProd.value === '__consultar__');
   }
-  // El selector de sabor solo aparece para el yogurt probiótico
+  // El selector de sabor y el de azúcar solo aparecen para el yogurt probiótico;
+  // el yogurt además solo se entrega a domicilio (sin recogida)
   var saborWrap = document.getElementById('saborYogurWrap');
   var saborSel = document.getElementById('saborYogur');
+  var azucarWrap = document.getElementById('azucarYogurWrap');
+  var azucarSel = document.getElementById('azucarYogur');
+  var notaDom = document.getElementById('notaYogurDomicilio');
+  var radioRecogida = document.getElementById('entregaRecogida');
+  var radioMensajeria = document.getElementById('entregaMensajeria');
   function toggleSabor(){
     var isYogurt = selectProd.value === 'yogurt-probiotico-4lt';
     if(saborWrap) saborWrap.style.display = isYogurt ? '' : 'none';
     if(!isYogurt && saborSel) saborSel.value = '';
+    if(azucarWrap) azucarWrap.style.display = isYogurt ? '' : 'none';
+    if(!isYogurt && azucarSel) azucarSel.value = '';
+    if(notaDom) notaDom.style.display = isYogurt ? '' : 'none';
+    if(radioRecogida) radioRecogida.disabled = isYogurt;
+    if(isYogurt && radioMensajeria){
+      radioMensajeria.checked = true;
+      toggleEntrega();
+    }
   }
   selectProd.addEventListener('change', toggleManual);
   selectProd.addEventListener('change', toggleSabor);
@@ -642,6 +666,9 @@
       if(found.id==='yogurt-probiotico-4lt' && saborSel && saborSel.value){
         txt += ' — Sabor: ' + saborSel.value;
       }
+      if(found.id==='yogurt-probiotico-4lt' && azucarSel && azucarSel.value){
+        txt += ' — Azúcar: ' + azucarSel.value;
+      }
       return txt;
     }
     var opt = selectProd.options[selectProd.selectedIndex];
@@ -668,6 +695,15 @@
     if(selectProd.value==='yogurt-probiotico-4lt' && saborSel && !saborSel.value){
       showError('Elige el sabor del yogurt para completar tu pedido.');
       saborSel.focus();
+      return;
+    }
+    if(selectProd.value==='yogurt-probiotico-4lt' && azucarSel && !azucarSel.value){
+      showError('Elige si quieres el yogurt con azúcar o sin azúcar.');
+      azucarSel.focus();
+      return;
+    }
+    if(selectProd.value==='yogurt-probiotico-4lt' && tipo==='recogida'){
+      showError('El yogurt probiótico solo se puede pedir por domicilio, no se recoge en ningún lugar.');
       return;
     }
     var notas = document.getElementById('notas').value.trim();
