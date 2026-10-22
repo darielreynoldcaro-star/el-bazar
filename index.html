@@ -86,7 +86,7 @@
   /* Catalog */
   .notice{background:var(--warning-bg);border:1px solid var(--warning-border);color:var(--warning-text);border-radius:var(--radius);padding:14px 16px;font-size:14px;line-height:1.5;margin-bottom:14px}
   .notice strong{color:inherit}
-  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
   @media(max-width:480px){.product-body{padding:8px}.product-name{font-size:12.5px}.product-price{font-size:15px}.product-price .cur{font-size:11px}.price-old{font-size:11.5px}.product-desc{font-size:11.5px}.specs li{font-size:10.5px;padding:3px 5px}.product-btn{font-size:12px;padding:9px 4px}.offer-tag{font-size:9px;padding:3px 6px;top:6px;left:6px}}
   .product{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;position:relative}
   .product-img{aspect-ratio:1/1;background:#ffffff;overflow:hidden;position:relative;border-bottom:1px solid var(--border)}
@@ -106,6 +106,23 @@
   .specs{list-style:none;margin:2px 0 4px;padding:0;display:flex;flex-wrap:wrap;gap:5px}
   .specs li{font-size:11.8px;line-height:1.3;background:var(--bg-soft);border:1px solid var(--border);padding:4px 7px;border-radius:999px;color:var(--text)}
   .product-btn{margin-top:auto;width:100%;padding:11px;border-radius:999px;border:0;background:var(--accent-fill);color:var(--accent-text);font-weight:700;cursor:pointer;font-size:14px}
+  .product-btn-row{display:flex;gap:8px;margin-top:auto}
+  .product-btn-row .product-btn{margin-top:0;flex:1}
+  .product-btn-view{background:var(--surface);color:var(--text);border:1px solid var(--border)}
+  .product-img,.product-photo{cursor:pointer}
+  /* Vista de producto */
+  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:100;display:flex;align-items:center;justify-content:center;padding:16px}
+  .modal-backdrop[hidden]{display:none}
+  .modal{background:var(--surface);border:1px solid var(--border);border-radius:20px;width:100%;max-width:440px;max-height:90vh;overflow:auto;box-shadow:0 12px 40px rgba(0,0,0,.3);position:relative}
+  .modal-close{position:absolute;top:10px;right:10px;z-index:2;width:34px;height:34px;border-radius:50%;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:20px;line-height:1;cursor:pointer}
+  .modal-img{background:#fff;border-bottom:1px solid var(--border)}
+  .modal-img img{width:100%;height:auto;display:block}
+  .modal-body{padding:18px;display:flex;flex-direction:column;gap:10px}
+  .modal-name{font-weight:800;font-size:20px;line-height:1.25}
+  .modal-price{font-weight:800;font-size:22px;color:var(--accent)}
+  .modal-old{font-size:15px;color:var(--muted);text-decoration:line-through;font-weight:600;margin-left:8px}
+  .modal-cur{font-size:13px;font-weight:700;color:var(--muted);margin-left:6px}
+  .modal-desc{margin:0;font-size:14.5px;color:var(--muted);line-height:1.55}
   .count-pill{display:inline-flex;align-items:center;background:var(--accent-soft);color:var(--accent);border:1px solid var(--border);font-size:12px;font-weight:800;padding:3px 8px;border-radius:999px;margin-left:6px;vertical-align:middle;white-space:nowrap}
   .catalog-note{background:var(--accent-soft);border:1px solid var(--border);color:var(--text);border-radius:var(--radius);padding:13px 15px;font-size:14px;line-height:1.5;margin-bottom:18px}
   .catalog-note strong{color:var(--accent)}
@@ -118,7 +135,7 @@
   .empty-icon{font-size:28px;margin-bottom:6px}
   .empty strong{display:block;font-size:15px;margin-bottom:4px}
   .empty p{margin:0;font-size:13.5px;color:var(--muted);line-height:1.5}
-  .skeleton{margin-top:12px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;opacity:.55}
+  .skeleton{margin-top:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;opacity:.55}
   .skeleton-card{border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--surface)}
   .skeleton-img{aspect-ratio:4/3;background:var(--bg-soft);display:flex;align-items:center;justify-content:center;font-size:22px}
   .skeleton-body{padding:10px}
@@ -197,12 +214,6 @@
       <a href="#pedido" class="btn btn-secondary">Hacer un pedido →</a>
     </div>
 
-    <nav class="cat-nav" aria-label="Categorías de El Bazar">
-      <a href="#rec">📱 Tecnología</a>
-      <a href="#seccion-comida">🥛 Comida</a>
-      <a href="#seccion-ropa">👗 Ropa</a>
-      <a href="#pedido">📝 Hacer un pedido</a>
-    </nav>
 
     <div class="trust">
       <div class="trust-card">
@@ -223,6 +234,13 @@
       </div>
     </div>
   </header>
+
+  <nav class="cat-nav" aria-label="Categorías de El Bazar">
+    <a href="#rec">📱 Tecnología</a>
+    <a href="#seccion-comida">🥛 Comida</a>
+    <a href="#seccion-ropa">👗 Ropa</a>
+    <a href="#pedido">📝 Hacer un pedido</a>
+  </nav>
 
   <!-- CÓMO PEDIR -->
   <section aria-labelledby="como-title">
@@ -922,16 +940,11 @@
           : '<div class="product-photo" aria-hidden="true"><span class="ph-icon">'+(p.icono||'🖼️')+'</span><span class="ph-label">Foto del producto</span></div>';
         var offerHtml = p.precioAntes ? '<span class="offer-tag">Oferta</span>' : '';
         var priceHtml = '<div class="product-price-row"><span class="product-price"></span>' + (p.precioAntes ? '<span class="price-old"></span>' : '') + '<span style="font-size:12px;font-weight:700;color:var(--muted)">'+(p.moneda||'USD')+'</span></div>';
-        var specsHtml = '';
-        if(p.specs && p.specs.length){
-          specsHtml = '<ul class="specs">' + p.specs.map(function(s){ return '<li></li>'; }).join('') + '</ul>';
-        }
         card.innerHTML = offerHtml + mediaHtml +
           '<div class="product-body">' +
             '<div class="product-name"></div>' +
             priceHtml +
-            specsHtml +
-            '<button type="button" class="product-btn">Pedir este producto</button>' +
+            '<div class="product-btn-row"><button type="button" class="product-btn">Comprar</button><button type="button" class="product-btn product-btn-view">Ver producto</button></div>' +
           '</div>';
         var imgEl = card.querySelector('.product-img img');
         if(imgEl) imgEl.alt = 'Flyer de ' + p.nombre;
@@ -940,22 +953,10 @@
         card.querySelector('.product-name').textContent = p.nombre;
         card.querySelector('.product-price').textContent = p.precio;
         if(p.precioAntes) card.querySelector('.price-old').textContent = p.precioAntes;
-        if(p.specs && p.specs.length){
-          var lis = card.querySelectorAll('.specs li');
-          p.specs.forEach(function(s,i){ if(lis[i]) lis[i].textContent = s; });
-        }
-        card.querySelector('.product-btn').addEventListener('click', function(){
-          select.value = p.id;
-          if(typeof toggleManual === 'function') toggleManual();
-          if(typeof toggleSabor === 'function') toggleSabor();
-          if(typeof toggleTalla === 'function') toggleTalla();
-          // toggleManual se define más abajo; si aún no existe, oculta el campo manual directamente
-          var mw = document.getElementById('productoManualWrap');
-          if(mw) mw.classList.remove('visible');
-          document.getElementById('pedido').scrollIntoView({behavior:'smooth'});
-          var fc = document.getElementById('orderForm');
-          if(fc){ fc.style.boxShadow = '0 0 0 3px var(--accent-soft)'; setTimeout(function(){ fc.style.boxShadow=''; }, 1200); }
-        });
+        card.querySelector('.product-btn').addEventListener('click', function(){ comprarProducto(p); });
+        card.querySelector('.product-btn-view').addEventListener('click', function(){ abrirProducto(p); });
+        var mediaEl = card.querySelector('.product-img') || card.querySelector('.product-photo');
+        if(mediaEl) mediaEl.addEventListener('click', function(){ abrirProducto(p); });
         grid.appendChild(card);
       }
       var opt = document.createElement('option');
@@ -1160,5 +1161,61 @@
   });
 </script>
 <script data-goatcounter="https://elbazarcu.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+  <div class="modal-backdrop" id="productModal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-label="Detalle del producto">
+      <button type="button" class="modal-close" id="modalClose" aria-label="Cerrar">×</button>
+      <div class="modal-img" id="modalImg"></div>
+      <div class="modal-body">
+        <div class="modal-name" id="modalName"></div>
+        <div><span class="modal-price" id="modalPrice"></span><span class="modal-old" id="modalOld"></span><span class="modal-cur" id="modalCur"></span></div>
+        <p class="modal-desc" id="modalDesc"></p>
+        <ul class="specs" id="modalSpecs"></ul>
+        <button type="button" class="product-btn" id="modalBuy">Comprar</button>
+      </div>
+    </div>
+  </div>
+  <script>
+  var modalProducto = null;
+  function comprarProducto(p){
+    var select = document.getElementById('productoSelect');
+    select.value = p.id;
+    if(typeof toggleManual === 'function') toggleManual();
+    if(typeof toggleSabor === 'function') toggleSabor();
+    if(typeof toggleTalla === 'function') toggleTalla();
+    var mw = document.getElementById('productoManualWrap');
+    if(mw) mw.classList.remove('visible');
+    document.getElementById('pedido').scrollIntoView({behavior:'smooth'});
+    var fc = document.getElementById('orderForm');
+    if(fc){ fc.style.boxShadow = '0 0 0 3px var(--accent-soft)'; setTimeout(function(){ fc.style.boxShadow=''; }, 1200); }
+  }
+  function abrirProducto(p){
+    modalProducto = p;
+    var imgBox = document.getElementById('modalImg');
+    imgBox.innerHTML = p.foto ? '<img src="'+p.foto+'" alt="">' : '<div class="product-photo" aria-hidden="true"><span class="ph-icon">'+(p.icono||'\uD83D\uDDBC\uFE0F')+'</span><span class="ph-label">Foto del producto</span></div>';
+    var im = imgBox.querySelector('img'); if(im) im.alt = 'Foto de ' + p.nombre;
+    document.getElementById('modalName').textContent = p.nombre;
+    document.getElementById('modalPrice').textContent = p.precio;
+    document.getElementById('modalOld').textContent = p.precioAntes || '';
+    document.getElementById('modalCur').textContent = p.moneda || 'USD';
+    var d = document.getElementById('modalDesc');
+    d.textContent = p.desc || '';
+    d.style.display = p.desc ? '' : 'none';
+    var sp = document.getElementById('modalSpecs');
+    sp.innerHTML = (p.specs||[]).map(function(){ return '<li></li>'; }).join('');
+    var lis = sp.querySelectorAll('li');
+    (p.specs||[]).forEach(function(s,i){ if(lis[i]) lis[i].textContent = s; });
+    sp.style.display = (p.specs && p.specs.length) ? '' : 'none';
+    document.getElementById('productModal').hidden = false;
+    document.body.style.overflow = 'hidden';
+  }
+  function cerrarProducto(){
+    document.getElementById('productModal').hidden = true;
+    document.body.style.overflow = '';
+  }
+  document.getElementById('modalClose').addEventListener('click', cerrarProducto);
+  document.getElementById('productModal').addEventListener('click', function(e){ if(e.target === this) cerrarProducto(); });
+  document.getElementById('modalBuy').addEventListener('click', function(){ if(modalProducto){ cerrarProducto(); comprarProducto(modalProducto); } });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !document.getElementById('productModal').hidden) cerrarProducto(); });
+  </script>
 </body>
 </html>
