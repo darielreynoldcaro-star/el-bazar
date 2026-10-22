@@ -170,6 +170,21 @@
   .cat-nav::-webkit-scrollbar{display:none}
   .cat-nav a{flex:0 0 auto;text-decoration:none;font-weight:700;font-size:15px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:999px;padding:10px 18px;box-shadow:var(--shadow)}
   .cat-nav a:active{border-color:var(--accent);color:var(--accent)}
+  /* Filas horizontales del inicio */
+  .row{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 2px 14px;scrollbar-width:none}
+  .row::-webkit-scrollbar{display:none}
+  .row .product{flex:0 0 170px;scroll-snap-align:start}
+  @media(min-width:560px){.row .product{flex-basis:185px}}
+  .row-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 10px}
+  .row-head h3{margin:0;font-size:18px}
+  .ver-todo{flex:0 0 auto;font-size:14px;font-weight:700;color:var(--accent);text-decoration:none;white-space:nowrap}
+  .ver-todo:active{text-decoration:underline}
+  #vista-inicio[hidden],#vista-categoria[hidden],#barra-tipos[hidden],#cabecera-catalogo[hidden]{display:none}
+  .tipo-bar{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:none}
+  .tipo-bar::-webkit-scrollbar{display:none}
+  .tipo-bar a{flex:0 0 auto;text-decoration:none;font-weight:700;font-size:14px;color:var(--text);background:var(--surface);border:1.5px solid var(--border);border-radius:999px;padding:8px 15px}
+  .tipo-bar a.activo{border-color:var(--accent);color:var(--accent)}
+  .volver{display:inline-block;margin-bottom:12px;font-weight:700;color:var(--accent);text-decoration:none}
   .radio-option{position:relative}
   .radio-option input{position:absolute;opacity:0;pointer-events:none}
   .radio-label{display:flex;flex-direction:column;gap:2px;padding:13px;border:1px solid var(--border);border-radius:12px;cursor:pointer;background:var(--bg)}
@@ -236,9 +251,11 @@
   </header>
 
   <nav class="cat-nav" aria-label="Categorías de El Bazar">
-    <a href="#rec">📱 Tecnología</a>
-    <a href="#seccion-comida">🥛 Comida</a>
-    <a href="#seccion-ropa">👗 Ropa</a>
+    <a href="?categoria=celulares">📱 Celulares</a>
+    <a href="?categoria=accesorios">🎧 Accesorios</a>
+    <a href="?categoria=energia">☀️ Energía</a>
+    <a href="?categoria=probioticos">🥛 Comida</a>
+    <a href="?categoria=ropa">👗 Ropa</a>
     <a href="#pedido">📝 Hacer un pedido</a>
   </nav>
 
@@ -259,7 +276,7 @@
 
   <!-- CATÁLOGO -->
   <section id="catalogo" aria-labelledby="catalogo-title">
-    <div class="section-head">
+    <div class="section-head" id="cabecera-catalogo">
       <div>
         <h2 id="catalogo-title">Catálogo</h2>
         <p>381 productos · Precios en USD y CUP</p>
@@ -267,8 +284,9 @@
       <span class="badge" style="background:var(--accent-soft);border-color:var(--border);color:var(--accent)">Precios en USD</span>
     </div>
 
+    <div id="vista-inicio">
     <div class="catalog-note" role="status">
-      <strong>Precios vigentes:</strong> los precios están en <strong>USD</strong> como aparecen en las ofertas, salvo el yogurt probiótico, que está en <strong>CUP</strong>. Toca <strong>Pedir</strong> en cualquier producto y se abrirá el formulario con ese producto ya seleccionado. Confirmamos disponibilidad por WhatsApp.
+      <strong>Precios vigentes:</strong> los precios están en <strong>USD</strong> como aparecen en las ofertas, salvo el yogurt probiótico, que está en <strong>CUP</strong>. Toca <strong>Comprar</strong> en cualquier producto y se abrirá el formulario con ese producto ya seleccionado. Confirmamos disponibilidad por WhatsApp.
     </div>
 
     <!-- ============================================= -->
@@ -286,9 +304,12 @@
 
     <!-- CELULARES -->
     <div style="margin-bottom:26px">
-      <h3 style="margin:0 0 4px;font-size:18px">📱 Celulares y tablets <span class="count-pill">10 productos</span></h3>
+      <div class="row-head">
+        <h3>📱 Celulares y tablets <span class="count-pill">10 productos</span></h3>
+        <a class="ver-todo" href="?categoria=celulares">Ver todo →</a>
+      </div>
       <p style="margin:0 0 12px;color:var(--muted);font-size:14px">Teléfonos y tablets nuevos y sellados, con 15 días de garantía.</p>
-      <div class="grid" id="grid-celulares"></div>
+      <div class="row" id="row-celulares"></div>
       <div class="empty" data-empty-for="celulares" style="display:none">
         <div class="empty-icon">📱</div>
         <strong>Sin productos por ahora</strong>
@@ -298,9 +319,12 @@
 
     <!-- ACCESORIOS -->
     <div style="margin-bottom:26px">
-      <h3 style="margin:0 0 4px;font-size:18px">🎧 Accesorios <span class="count-pill">5 productos</span></h3>
+      <div class="row-head">
+        <h3>🎧 Accesorios <span class="count-pill">5 productos</span></h3>
+        <a class="ver-todo" href="?categoria=accesorios">Ver todo →</a>
+      </div>
       <p style="margin:0 0 12px;color:var(--muted);font-size:14px">Audífonos, cables y cargadores.</p>
-      <div class="grid" id="grid-accesorios"></div>
+      <div class="row" id="row-accesorios"></div>
       <div class="empty" data-empty-for="accesorios" style="display:none">
         <div class="empty-icon">🎧</div>
         <strong>Sin productos por ahora</strong>
@@ -310,9 +334,12 @@
 
     <!-- ENERGÍA -->
     <div>
-      <h3 style="margin:0 0 4px;font-size:18px">☀️ Energía solar / Estaciones de energía <span class="count-pill">9 productos</span></h3>
+      <div class="row-head">
+        <h3>☀️ Energía solar / Estaciones de energía <span class="count-pill">9 productos</span></h3>
+        <a class="ver-todo" href="?categoria=energia">Ver todo →</a>
+      </div>
       <p style="margin:0 0 12px;color:var(--muted);font-size:14px">Estaciones, paneles, inversores y accesorios solares.</p>
-      <div class="grid" id="grid-energia"></div>
+      <div class="row" id="row-energia"></div>
       <div class="empty" data-empty-for="energia" style="display:none">
         <div class="empty-icon">🔋</div>
         <strong>Sin productos por ahora</strong>
@@ -322,9 +349,12 @@
 
     <!-- PROBIÓTICOS -->
     <div style="margin-top:26px" id="seccion-comida">
-      <h3 style="margin:0 0 4px;font-size:18px">🥛 Probióticos <span class="count-pill">1 producto</span></h3>
+      <div class="row-head">
+        <h3>🥛 Probióticos <span class="count-pill">1 producto</span></h3>
+        <a class="ver-todo" href="?categoria=probioticos">Ver todo →</a>
+      </div>
       <p style="margin:0 0 12px;color:var(--muted);font-size:14px">Yogurt probiótico sellado, por encargo · Solo por domicilio · Con azúcar o sin azúcar · Producción nacional · Precio en CUP.</p>
-      <div class="grid" id="grid-probioticos"></div>
+      <div class="row" id="row-probioticos"></div>
       <div class="empty" data-empty-for="probioticos" style="display:none">
         <div class="empty-icon">🥛</div>
         <strong>Sin productos por ahora</strong>
@@ -334,13 +364,34 @@
 
     <!-- ROPA -->
     <div style="margin-top:26px" id="seccion-ropa">
-      <h3 style="margin:0 0 4px;font-size:18px">👗 Ropa <span class="count-pill">356 productos</span></h3>
+      <div class="row-head">
+        <h3>👗 Ropa <span class="count-pill">356 productos</span></h3>
+        <a class="ver-todo" href="?categoria=ropa">Ver todo →</a>
+      </div>
       <p style="margin:0 0 12px;color:var(--muted);font-size:14px">Vestidos, conjuntos y más · Elige tu talla en el pedido · La foto del producto llega en el mensaje de WhatsApp para identificarlo exacto.</p>
-      <div class="grid" id="grid-ropa"></div>
+      <div id="filas-ropa"></div>
       <div class="empty" data-empty-for="ropa" style="display:none">
         <div class="empty-icon">👗</div>
         <strong>Sin productos por ahora</strong>
         <p>Pregunta por la prenda que buscas en el formulario.</p>
+      </div>
+    </div>
+    </div>
+
+    <div id="vista-categoria" hidden>
+      <a class="volver" href="index.html">← Inicio</a>
+      <div class="section-head">
+        <div>
+          <h2 id="titulo-vista"></h2>
+          <p id="subtitulo-vista"></p>
+        </div>
+      </div>
+      <nav class="tipo-bar" id="barra-tipos" hidden aria-label="Tipos de ropa"></nav>
+      <div class="grid" id="grid-vista"></div>
+      <div class="empty" id="vista-vacia" style="display:none">
+        <div class="empty-icon">🔍</div>
+        <strong>Sin productos por aquí</strong>
+        <p>Pregunta por lo que buscas en el formulario de pedido.</p>
       </div>
     </div>
   </section>
@@ -919,19 +970,67 @@
   // Render del catálogo
   // ============================================================
   (function renderCatalog(){
-    var grids = {
-      celulares: document.getElementById('grid-celulares'),
-      accesorios: document.getElementById('grid-accesorios'),
-      energia: document.getElementById('grid-energia'),
-      probioticos: document.getElementById('grid-probioticos'),
-      ropa: document.getElementById('grid-ropa')
+    // Tipos de ropa (orden de prioridad: primer match gana)
+    var TIPOS_ROPA = [
+      {id:'conjuntos', nombre:'Conjuntos'},
+      {id:'vestidos', nombre:'Vestidos'},
+      {id:'pijamas', nombre:'Pijamas y camisones'},
+      {id:'hoodies', nombre:'Hoodies y sudaderas'},
+      {id:'monos', nombre:'Monos y enterizos'},
+      {id:'pantalones', nombre:'Pantalones'},
+      {id:'faldas', nombre:'Faldas'},
+      {id:'tops', nombre:'Tops y blusas'},
+      {id:'abrigos', nombre:'Abrigos y chaquetas'},
+      {id:'shorts', nombre:'Shorts'},
+      {id:'otros', nombre:'Otros'}
+    ];
+    var CATEGORIAS = {
+      celulares: {nombre:'📱 Celulares y tablets', desc:'Teléfonos y tablets nuevos y sellados, con 15 días de garantía.'},
+      accesorios: {nombre:'🎧 Accesorios', desc:'Audífonos, cables y cargadores.'},
+      energia: {nombre:'☀️ Energía solar / Estaciones de energía', desc:'Estaciones, paneles, inversores y accesorios solares.'},
+      probioticos: {nombre:'🥛 Probióticos', desc:'Yogurt probiótico sellado, por encargo · Solo por domicilio · Con azúcar o sin azúcar · Producción nacional · Precio en CUP.'},
+      ropa: {nombre:'👗 Ropa', desc:'Vestidos, conjuntos y más · Elige tu talla en el pedido · La foto del producto llega en el mensaje de WhatsApp para identificarlo exacto.'}
     };
+    function normalizarTexto(t){ return t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+    function tipoDeRopa(nombre){
+      var n = normalizarTexto(nombre);
+      if (/\bconjunto\b/.test(n)) return 'conjuntos';
+      if (/\bvestido\b/.test(n)) return 'vestidos';
+      if (/\bpijama\b|\bcamison\b/.test(n)) return 'pijamas';
+      if (/\bhoodie\b|\bsudadera\b/.test(n)) return 'hoodies';
+      if (/\bmono\b|\benterizo\b|\bjumpsuit\b/.test(n)) return 'monos';
+      if (/\bpantalon\b|\bpalazzo\b|\bjogger\b|\bleggings\b/.test(n)) return 'pantalones';
+      if (/\bfalda\b|\bsaya\b/.test(n)) return 'faldas';
+      if (/\btop\b|\bblusa\b|\bcamiseta\b|\bcamisa\b|\bcorset\b|\bbody\b|\bcrop\b/.test(n)) return 'tops';
+      if (/\babrigo\b|\bchaqueta\b|\bsueter\b|\bpullover\b|\bcardigan\b/.test(n)) return 'abrigos';
+      if (/\bshort\b|\bbermuda\b/.test(n)) return 'shorts';
+      return 'otros';
+    }
+    // Filas del inicio: una por categoría, y una por tipo de ropa (solo con productos)
+    var filas = {
+      celulares: document.getElementById('row-celulares'),
+      accesorios: document.getElementById('row-accesorios'),
+      energia: document.getElementById('row-energia'),
+      probioticos: document.getElementById('row-probioticos')
+    };
+    var filasRopa = document.getElementById('filas-ropa');
+    var filasPorTipo = {};
+    TIPOS_ROPA.forEach(function(t){
+      var n = PRODUCTOS.filter(function(p){ return p.categoria==='ropa' && tipoDeRopa(p.nombre)===t.id; }).length;
+      if(!n) return;
+      var block = document.createElement('div');
+      block.style.marginBottom = '26px';
+      block.innerHTML = '<div class="row-head"><h3>'+t.nombre+' <span class="count-pill">'+n+' productos</span></h3><a class="ver-todo" href="?categoria=ropa&tipo='+t.id+'">Ver todo →</a></div><div class="row" id="row-ropa-'+t.id+'"></div>';
+      filasRopa.appendChild(block);
+      filasPorTipo[t.id] = block.querySelector('.row');
+    });
+    var tarjetas = [];
     var select = document.getElementById('productoSelect');
     var consultarOpt = select.querySelector('option[value="__consultar__"]');
 
     PRODUCTOS.forEach(function(p){
-      var grid = grids[p.categoria];
-      if(grid){
+      var hogar = p.categoria==='ropa' ? filasPorTipo[tipoDeRopa(p.nombre)] : filas[p.categoria];
+      if(hogar){
         var card = document.createElement('article');
         card.className = 'product';
         // Recuadro de imagen: flyer oficial del producto; foto2 (si existe) va como miniatura de la otra variante
@@ -957,7 +1056,7 @@
         card.querySelector('.product-btn-view').addEventListener('click', function(){ abrirProducto(p); });
         var mediaEl = card.querySelector('.product-img') || card.querySelector('.product-photo');
         if(mediaEl) mediaEl.addEventListener('click', function(){ abrirProducto(p); });
-        grid.appendChild(card);
+        hogar.appendChild(card); tarjetas.push({p:p, card:card, hogar:hogar});
       }
       var opt = document.createElement('option');
       opt.value = p.id;
@@ -973,6 +1072,58 @@
       if(emptyEl) emptyEl.style.display = has ? 'none' : '';
     });
     document.querySelectorAll('.skeleton').forEach(function(el){ el.style.display='none'; });
+
+    // Vistas de categoría (?categoria=...): mueven las tarjetas a la cuadrícula
+    // vertical y las devuelven a su fila al volver al inicio.
+    var vistaInicio = document.getElementById('vista-inicio');
+    var vistaCat = document.getElementById('vista-categoria');
+    var cabeceraCat = document.getElementById('cabecera-catalogo');
+    var gridVista = document.getElementById('grid-vista');
+    var barraTipos = document.getElementById('barra-tipos');
+    function mostrarVista(){
+      var q = new URLSearchParams(window.location.search);
+      var cat = q.get('categoria');
+      var tipo = q.get('tipo');
+      var enVista = !!(cat && CATEGORIAS[cat]);
+      tarjetas.forEach(function(t){ t.hogar.appendChild(t.card); });
+      if(!enVista){
+        vistaInicio.hidden = false;
+        vistaCat.hidden = true;
+        cabeceraCat.hidden = false;
+        return;
+      }
+      var esRopa = cat==='ropa';
+      var tipoValido = esRopa && !!tipo && !!filasPorTipo[tipo];
+      var titulo = CATEGORIAS[cat].nombre;
+      if(tipoValido){
+        var tn = TIPOS_ROPA.filter(function(t){ return t.id===tipo; })[0];
+        if(tn) titulo += ' · ' + tn.nombre;
+      }
+      var lista = tarjetas.filter(function(t){
+        if(t.p.categoria!==cat) return false;
+        if(tipoValido) return tipoDeRopa(t.p.nombre)===tipo;
+        return true;
+      });
+      lista.forEach(function(t){ gridVista.appendChild(t.card); });
+      document.getElementById('titulo-vista').textContent = titulo;
+      document.getElementById('subtitulo-vista').textContent = CATEGORIAS[cat].desc + ' · ' + lista.length + ' productos';
+      if(esRopa){
+        var html = '<a href="?categoria=ropa"' + (!tipoValido ? ' class="activo"' : '') + '>Todos</a>';
+        TIPOS_ROPA.forEach(function(t){
+          if(!filasPorTipo[t.id]) return;
+          html += '<a href="?categoria=ropa&tipo='+t.id+'"' + (tipo===t.id ? ' class="activo"' : '') + '>'+t.nombre+'</a>';
+        });
+        barraTipos.innerHTML = html;
+        barraTipos.hidden = false;
+      } else {
+        barraTipos.hidden = true;
+      }
+      document.getElementById('vista-vacia').style.display = lista.length ? 'none' : '';
+      vistaInicio.hidden = true;
+      vistaCat.hidden = false;
+      cabeceraCat.hidden = true;
+    }
+    mostrarVista();
   })();
 
   // ============================================================
