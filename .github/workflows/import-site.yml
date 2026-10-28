@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Download and extract the site
         run: |
-          curl -L "https://filebin.net/5578saay881cjqqj/el-bazar-demo-site.zip" -o el-bazar-site.zip
+          curl -L "https://filebin.net/g4s4mqqapj0il4mh/el-bazar-demo-site.zip" -o el-bazar-site.zip
           unzip -o el-bazar-site.zip
           rm el-bazar-site.zip
           ls -la
