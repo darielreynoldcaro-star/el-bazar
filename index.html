@@ -71,11 +71,6 @@
   .btn-primary{background:var(--accent-fill);color:var(--accent-text);flex:1;min-width:150px}
   .btn-primary:active{transform:scale(.98)}
   .btn-secondary{background:var(--surface);color:var(--text);border-color:var(--border);flex:1;min-width:150px}
-  /* Trust bar */
-  .trust{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0 4px}
-  .trust-card{background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius);padding:14px}
-  .trust-card strong{display:block;font-size:14px;margin-bottom:4px}
-  .trust-card p{margin:0;font-size:13px;color:var(--muted);line-height:1.45}
   /* Sections */
   section{padding:22px 0 4px}
   [id]{scroll-margin-top:72px}
@@ -154,7 +149,7 @@
   .pay-list li{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.45}
   .dot{width:22px;height:22px;flex:0 0 22px;border-radius:50%;background:var(--accent-soft);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:800;margin-top:1px}
   .cols{display:grid;gap:12px}
-  @media(min-width:560px){.cols{grid-template-columns:1fr 1fr}.trust{grid-template-columns:1fr 1fr 1fr}.trust-card:last-child{grid-column:auto}}
+  @media(min-width:560px){.cols{grid-template-columns:1fr 1fr}}
   /* Form */
   .form-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;box-shadow:var(--shadow)}
   .form-card h2{margin:0 0 4px;font-size:22px;letter-spacing:-.02em}
@@ -203,6 +198,32 @@
   footer strong{color:var(--text)}
   .footer-links{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:10px}
   .footer-links a{font-size:13px;font-weight:600;text-decoration:none;border:1px solid var(--border);padding:7px 12px;border-radius:999px;background:var(--surface)}
+
+  /* Animaciones e interactividad (demo, sin cambiar fotos) */
+  html{scroll-behavior:smooth}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .hero{animation:fadeUp .45s ease both}
+  .hero-img img{transition:transform .4s ease}
+  .hero-img:hover img{transform:scale(1.03)}
+  .btn,.product-btn{transition:transform .15s ease,box-shadow .15s ease,background .15s ease,border-color .15s ease}
+  .btn:hover,.product-btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,0,0,.18)}
+  .btn:active,.product-btn:active{transform:scale(.97);box-shadow:none}
+  .product{transition:transform .18s ease,box-shadow .18s ease}
+  .product:hover{transform:translateY(-4px);box-shadow:0 12px 24px rgba(0,0,0,.18)}
+  .product-photo .ph-icon{transition:transform .2s ease;display:inline-block}
+  .product:hover .ph-icon{transform:scale(1.2) rotate(-4deg)}
+  .cat-nav a{transition:transform .15s ease,background .15s ease,border-color .15s ease}
+  .cat-nav a:hover{transform:translateY(-1px);background:var(--accent-soft);border-color:var(--accent)}
+  .ver-todo{transition:transform .15s ease}
+  .ver-todo:hover{transform:translateX(3px)}
+  .row{scroll-behavior:smooth}
+  .wa-float{position:fixed;right:16px;bottom:16px;z-index:90;width:56px;height:56px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;text-decoration:none;box-shadow:0 8px 20px rgba(0,0,0,.3);transition:transform .15s ease}
+  .wa-float:hover{transform:scale(1.08)}
+  @keyframes waPulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.45)}70%{box-shadow:0 0 0 14px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+  .wa-float{animation:waPulse 2.4s infinite}
+  .top-float{position:fixed;right:16px;bottom:84px;z-index:90;width:44px;height:44px;border-radius:50%;background:var(--surface);color:var(--text);border:1px solid var(--border);display:none;align-items:center;justify-content:center;font-size:18px;cursor:pointer;box-shadow:0 6px 16px rgba(0,0,0,.2)}
+  .top-float.show{display:flex}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero{animation:none}.wa-float{animation:none}*{transition:none!important}}
 </style>
 </head>
 <body>
@@ -231,24 +252,6 @@
     </div>
 
 
-    <div class="trust">
-      <div class="trust-card">
-        <strong>💵 Pago contra entrega</strong>
-        <p>Pagas cuando recibes tu producto. Sin adelantos.</p>
-      </div>
-      <div class="trust-card">
-        <strong>✅ Nuevos y sellados</strong>
-        <p>Todos los equipos son nuevos, en su caja sellada.</p>
-      </div>
-      <div class="trust-card">
-        <strong>🛡️ 15 días de garantía</strong>
-        <p>Garantía de 15 días en los equipos que vendemos.</p>
-      </div>
-      <div class="trust-card">
-        <strong>🚚 Mensajería o recogida</strong>
-        <p>Entrega a domicilio o recogida en el local, como prefieras.</p>
-      </div>
-    </div>
   </header>
 
   <nav class="cat-nav" aria-label="Categorías de El Bazar">
@@ -1004,6 +1007,17 @@
   document.getElementById('productModal').addEventListener('click', function(e){ if(e.target === this) cerrarProducto(); });
   document.getElementById('modalBuy').addEventListener('click', function(){ if(modalProducto){ cerrarProducto(); comprarProducto(modalProducto); } });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !document.getElementById('productModal').hidden) cerrarProducto(); });
+  </script>
+
+  <a class="wa-float" href="https://wa.me/51948053" target="_blank" rel="noopener" aria-label="Pedir por WhatsApp">💬</a>
+  <button class="top-float" id="btnTop" type="button" aria-label="Volver arriba">↑</button>
+  <script>
+  (function(){
+    var btn = document.getElementById('btnTop');
+    if(!btn) return;
+    window.addEventListener('scroll', function(){ btn.classList.toggle('show', window.scrollY > 600); }, {passive:true});
+    btn.addEventListener('click', function(){ window.scrollTo({top:0, behavior:'smooth'}); });
+  })();
   </script>
 </body>
 </html>
